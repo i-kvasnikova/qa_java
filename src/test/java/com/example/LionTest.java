@@ -1,8 +1,7 @@
 package com.example;
 
-import org.junit.Rule;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.junit.runner.RunWith;
@@ -16,19 +15,10 @@ public class LionTest {
     @Mock
     Feline feline;
 
-    @Test(expected = Exception.class)
-    public void lionConstructorPassInvalidSexValueThrowsException() throws Exception {
-        Lion lion = new Lion("", feline);
-    }
-
-    @Rule
-    public ExpectedException expectedConstructorException = ExpectedException.none();
-
     @Test
-    public void lionConstructorPassInvalidSexValueThrowsCorrectExceptionMessage() throws Exception {
-        expectedConstructorException.expect(Exception.class);
-        expectedConstructorException.expectMessage("Используйте допустимые значения пола животного - самец или самка");
-        Lion lion = new Lion("", feline);
+    public void lionConstructorPassInvalidSexValueThrowsCorrectExceptionMessage() {
+        Exception exception = Assert.assertThrows(Exception.class, () -> new Lion("", feline));
+        Assert.assertEquals("Используйте допустимые значения пола животного - самец или самка", exception.getMessage());
     }
 
     @Test
